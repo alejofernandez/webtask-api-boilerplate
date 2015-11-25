@@ -1,14 +1,30 @@
+## webtask-api-boilerplate
 
-This is a very simple project to demo building backend apps with
-webpack. To use:
+This is a very simple project to demo how to build an API and bundle it in a single file using `webpack` and deploy it to a `webtask.io`.
 
+### Install global modules
+1. `npm install -g gulp`
+2. `npm install -g wt-cli`
+3. `wt init`
+ 
+### Install local modules
 1. `npm install`
-2. `gulp run`
 
-The latest version implements everything in [Backend Apps with Webpack: Part III](http://jlongster.com/Backend-Apps-with-Webpack--Part-III), allowing hot-patching of functions. This is also available on the frontend, so we've somewhat outgrown the name of this repo.
+### To run the API locally
+1. `gulp run`
+  or
+2. `gulp debug`
 
-This is meant to along with my posts. Each post corresponds to a branch:
+### To deploy the API as a webtask
+1. `gulp deployWebtask`
 
-* [Backend Apps with Webpack: Part I](http://jlongster.com/Backend-Apps-with-Webpack--Part-I) - part1
-* [Backend Apps with Webpack: Part II](http://jlongster.com/Backend-Apps-with-Webpack--Part-II) - part2a and part2b
-* [Live Editing with Webpack: Part III](http://jlongster.com/Backend-Apps-with-Webpack--Part-III) - part3 (or master)
+This boilerplate has an ES6 babel loader, API source code was written using ES6 and it uses MongoDb as repository.
+
+### How to hack this repo
+1. Edit your configuration files for setting up secrets and parameters.
+2. Create a route installer for your API and define all routes you want to implement.
+3. Create a controller for your handling your routes.
+4. Create a service for implementing your business logic.
+5. Test/debug your api locally.
+6. Deploy your api to `webtask.io`
+5. Create a repository for storing the domain model.
