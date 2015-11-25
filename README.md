@@ -32,15 +32,15 @@ The API skeleton follows the guidelines described by [DDD](https://en.wikipedia.
 * Repository: handles the persistency of the domain model.
 
 ### How to hack this repo
-1. [Edit your configuration files for setting up secrets and parameters.](tree/master/config)
-2. [Create a route installers for your API and define all routes you want to implement.](tree/master/src/routes)
-3. [Create a controller for your handling your routes.](tree/master/src/controllers)
-4. [Create a service for implementing your business logic.](tree/master/src/services)
-5. [Create a repository for storing the domain model.](tree/master/src/services)
+1. [Edit your configuration files for setting up secrets and parameters.](../../tree/master/config)
+2. [Create a route installers for your API and define all routes you want to implement.](../../tree/master/src/routes)
+3. [Create a controller for your handling your routes.](../../tree/master/src/controllers)
+4. [Create a service for implementing your business logic.](../../tree/master/src/services)
+5. [Create a repository for storing the domain model.](../../tree/master/src/services)
 6. TBD: Add unit tests for your controllers and services.
 7. TBD: Add integration tests for your repositories.
-8. [Test/debug your api locally.](..blob/master/src/running-locally.md)
-9. [Deploy your api to `webtask.io`.](..blob/master/src/working-with-webtasks.md)
+8. [Test/debug your api locally.](../../blob/master/running-locally.md)
+9. [Deploy your api to `webtask.io`.](../../blob/master/working-with-webtasks.md)
 
 ### Roadmap
 * Add tests and a gulp task for running them and a configuration for tests
