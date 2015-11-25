@@ -93,7 +93,11 @@ function deployWebtask(deployConfig) {
   var command = 'wt create "' + deployConfig.source + '" --no-parse --no-merge --name ' + config.webtaskName;
 
   Object.keys(config.secret).forEach(function (key) {
-    command = command + ' -s ' + key + '=' + config.secret[key];
+    command = command + ' --secret ' + key + '=' + config.secret[key];
+  });
+
+  Object.keys(config.param).forEach(function (key) {
+    command = command + ' --param ' + key + '=' + config.param[key];
   });
 
   run(command).exec();
