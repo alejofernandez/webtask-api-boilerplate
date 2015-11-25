@@ -6,6 +6,10 @@ Use the `index.js` file to require and mount all your route installers on root l
 routes.use('/todos', todosInstaller());
 ```
 
+Your API route be located at:
+* locally: `http://localhost:{localport}/{baseUri}/todos`
+* remotely: `https://webtask.it.auth0.com/api/run/{webtaskAccountName}/{webtaskName}/{baseUri}/todos`
+
 ### Route installers
 Route installers responsibilities are:
 * Mount controllers for each route

@@ -1,6 +1,6 @@
 'use strict';
 import _             from 'lodash'
-import defaultConfig from './default.congig.js'
+import defaultConfig from './default.config.js'
 /*
  *  Boilerplate: This configuration file will be injected (merged with the default configuration) when running the api locally
  *

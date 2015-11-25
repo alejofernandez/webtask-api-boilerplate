@@ -4,7 +4,7 @@ There is a layer of abstraction created on top of MongoDB called `DbCollection` 
 This `DbCollection` helper class provides promisified access to the following `mongodb.Collection` methods: `find`, `insertOne`, `updateOne` and `deleteOne`.
 The connection string is obtained from the `context`, that is passed between layers in every function invocation.
 
-```
+```javascript
 import {DbCollection} from './utils';
 
 class MyRepository {
@@ -19,4 +19,4 @@ class MyRepository {
     ;
   }
 }
-``
+```

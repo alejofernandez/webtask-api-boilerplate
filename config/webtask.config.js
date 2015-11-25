@@ -1,6 +1,6 @@
 'use strict';
 import _             from 'lodash'
-import defaultConfig from './default.congig.js'
+import defaultConfig from './default.config.js'
 /*
  *  Boilerplate: This configuration file will be sent to the Webstask runtime (merged with the default configuration) when creating the webtask
  *

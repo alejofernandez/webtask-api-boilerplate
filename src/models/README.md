@@ -2,7 +2,7 @@
 
 Models are simple entities that carry data between layers, by convention they implement the following structure:
 
-```
+```javascript
 class MyModel {
   constructor(properties) {
     /* load the model with properties */

@@ -1,6 +1,6 @@
 ## webtask-api-boilerplate
 
-This is a very simple opinionated seed/skeleton project to demo how to build an API and bundle it in a single file using `webpack` and deploy it to a `webtask.io`.
+This is a very simple opinionated seed/skeleton project to demo how to build an API and bundle it in a single file that can run locally or be hosted in a `webtask.io` container.
 
 ### Install global modules
 1. `npm install -g gulp`
@@ -19,11 +19,12 @@ This is a very simple opinionated seed/skeleton project to demo how to build an 
 1. `gulp deployWebtask`
 
 ### Opinionated API design
-This boilerplate has an ES6 babel loader, API source code was written using ES6 and it uses MongoDb as repository.
+This boilerplate uses `webpack` for bundling the API and `gulp` for build/deploy automation.
+API source code was written in `ES6`, it uses `Express.js` for the web stack and `MongoDb` as repository.
 
-The API skeleton follows the guidelines described by [DDD](https://en.wikipedia.org/wiki/Domain-driven_design), the communication flow between different components is:
+This API tries to implement the a simplified version of the REST design pattern following the guidelines described by [DDD](https://en.wikipedia.org/wiki/Domain-driven_design), the communication flow between different components is:
 ```
-{Http Request} => [Controller] => [Service] => [Repository] => {database}
+{Http requests} => [Controller] => [Service] => [Repository] => {database}
 ```
 
 ### Layer responsibilities in this API
@@ -34,7 +35,7 @@ The API skeleton follows the guidelines described by [DDD](https://en.wikipedia.
 ### How to hack this repo
 1. [Edit your configuration files for setting up secrets and parameters.](../../tree/master/config)
 2. [Create a route installers for your API and define all routes you want to implement.](../../tree/master/src/routes)
-3. [Create a controller for your handling your routes.](../../tree/master/src/controllers)
+3. [Create a controller for handling your routes.](../../tree/master/src/controllers)
 4. [Create a service for implementing your business logic.](../../tree/master/src/services)
 5. [Create a repository for storing the domain model.](../../tree/master/src/repositories)
 6. TBD: Add unit tests for your controllers and services.

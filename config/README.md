@@ -1,7 +1,7 @@
 ## How to edit configuration files for setting up secrets and parameters
 
 ### Configuration file structure
-```
+```javascript
 {
   baseUri: '/api',
   secret:  {

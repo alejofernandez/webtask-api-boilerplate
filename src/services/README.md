@@ -1,7 +1,7 @@
 ## How to create services for implementing business logic
 
 This is a simple implementation of a service that implements a CRUD business logic for a REST API resource:
-```
+```javascript
 class TodoService {
   constructor({repository}) {
     this.repository = repository;
