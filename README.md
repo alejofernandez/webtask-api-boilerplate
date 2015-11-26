@@ -1,6 +1,6 @@
 ## webtask-api-boilerplate
 
-This is a very simple opinionated seed/skeleton project to demo how to build an API and bundle it in a single file that can run locally or be hosted in a `webtask.io` container.
+This is a very simple opinionated seed/skeleton project to demo how to build an API and bundle it into a single file, to run it locally or host it in a `webtask.io` container.
 
 ### Install global modules
 1. `npm install -g gulp`
@@ -22,7 +22,8 @@ This is a very simple opinionated seed/skeleton project to demo how to build an 
 This boilerplate uses `webpack` for bundling the API and `gulp` for build/deploy automation.
 API source code was written in `ES6`, it uses `Express.js` for the web stack and `MongoDb` as repository.
 
-This API tries to implement the a simplified version of the REST design pattern following the guidelines described by [DDD](https://en.wikipedia.org/wiki/Domain-driven_design), the communication flow between different components is:
+This API tries to implement a simplified version of the REST design pattern, following the guidelines described by [DDD](https://en.wikipedia.org/wiki/Domain-driven_design).
+The communication flow between different layers of the API is:
 ```
 {Http requests} => [Controller] => [Service] => [Repository] => {database}
 ```
@@ -50,3 +51,5 @@ This API tries to implement the a simplified version of the REST design pattern 
 * Add an auto re-deploy task and stream logs to the console for 100% remote development
 * Validate required modules against `https://tehsis.github.io/webtaskio-canirequire/` as a part of the build
 * Refactor the `gulpfile` into different plugins for future publishing
+
+![deploy](https://cloud.githubusercontent.com/assets/1288192/11413849/dbc4d0d8-93cc-11e5-8662-6042d6ed58ac.gif)
