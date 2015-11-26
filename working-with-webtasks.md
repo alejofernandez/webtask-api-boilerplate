@@ -10,3 +10,5 @@ Bundle configuration file will be generated at `./build/webtask.config.js`.
 * `gulp deployWebtask`
 
 Please make sure to have `wt-cli` installed.
+
+![deploy](https://cloud.githubusercontent.com/assets/1288192/11413849/dbc4d0d8-93cc-11e5-8662-6042d6ed58ac.gif)
