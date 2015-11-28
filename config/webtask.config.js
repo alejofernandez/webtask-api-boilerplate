@@ -8,11 +8,13 @@ import defaultConfig from './default.config.js'
  *
  */
 let config = {
-  webtaskName: 'todo-microservice',
-  secret:      {
+  webtaskName:  'todo-microservice',
+  webtaskToken: '', // your webtask token goes here, install wt-cli then run wt init and finally wt profile get default
+
+  secret:       {
     MONGO_URL: 'mongodb://todos-api:Otw8p61kJUc03LltbW2jOIpyDU37S4DYAZhZDuNh@ds057954.mongolab.com:57954/todos'
   },
-  param:       {
+  param:        {
   }
 };
 

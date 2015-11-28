@@ -3,20 +3,27 @@
 This is a very simple opinionated seed/skeleton project to demo how to build an API and bundle it into a single file, to run it locally or host it in a `webtask.io` container.
 
 ### Install global modules
-1. `npm install -g gulp`
-2. `npm install -g wt-cli`
-3. `wt init`
+* `npm install -g gulp`
+* `npm install -g wt-cli`
 
 ### Install local modules
-1. `npm install`
+* `npm install`
+
+### Create your webtask profile and configure your token
+* `wt init` => then follow instructions
+* `wt profile get default` => copy the token
+
+<img width="450" alt="default profile" src="https://cloud.githubusercontent.com/assets/1288192/11450091/13a63444-956f-11e5-8f8a-7d811d507fba.png">
+
+* open `./config/webtask.config.js` and configure the `webtaskToken` property with your token
 
 ### To run the API locally
-1. `gulp run`
+* `gulp run`
   or
-2. `gulp debug`
+* `gulp debug`
 
 ### To deploy the API as a webtask
-1. `gulp deployWebtask`
+* `gulp deployWebtask`
 
 ### Opinionated API design
 This boilerplate uses `webpack` for bundling the API and `gulp` for build/deploy automation.
@@ -45,8 +52,7 @@ The communication flow between different layers of the API is:
 9. [Deploy your api to `webtask.io`.](../../blob/master/working-with-webtasks.md)
 
 ### Roadmap
-* Add tests and a gulp task for running them and a configuration for tests
-* Use `wt` as a library instead of as a command line tool
+* Add tests and a gulp task for running them and a configuration file for tests
 * Add an auto reload task for local development
 * Add an auto re-deploy task and stream logs to the console for 100% remote development
 * Validate required modules against `https://tehsis.github.io/webtaskio-canirequire/` as a part of the build

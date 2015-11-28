@@ -1,9 +1,13 @@
 'use strict';
-var gulp          = require('gulp');
-var fs            = require('fs');
-var nodemon       = require('nodemon');
-var run           = require('gulp-run');
-var webpack       = require('webpack');
+var gulp     = require('gulp');
+var fs       = require('fs');
+var nodemon  = require('nodemon');
+var run      = require('gulp-run');
+var webpack  = require('webpack');
+var Sandbox  = require('sandboxjs');
+var Promise  = require('bluebird');
+var readFile = Promise.promisify(fs.readFile);
+var colors   = require('colors/safe');
 
 // We need to exclude node_modules, otherwise webpack will bundle them
 var nodeModules = {};
@@ -87,20 +91,48 @@ function onBuild(done) {
   }
 }
 
-// This helper creates a webtask using the wt-cli
-function deployWebtask(deployConfig) {
+// This helper creates a webtask using sandboxjs
+function deployWebtask(deployConfig, done) {
   var config  = require(deployConfig.config)();
-  var command = 'wt create "' + deployConfig.source + '" --no-parse --no-merge --name ' + config.webtaskName;
 
-  Object.keys(config.secret).forEach(function (key) {
-    command = command + ' --secret ' + key + '=' + config.secret[key];
-  });
+  if (!config.webtaskName) {
+    return done(colors.white('=> ') +
+      colors.red('error deploying webtask: ') +
+      'Missing webtask name, please define the webtaskName key in ' +
+      colors.cyan(deployConfig.config));
+  }
 
-  Object.keys(config.param).forEach(function (key) {
-    command = command + ' --param ' + key + '=' + config.param[key];
-  });
+  if (!config.webtaskToken) {
+    return done(colors.white('=> ') +
+      colors.red('error deploying webtask: ') +
+      'Missing webtask token, please define the webtaskToken key in ' +
+      colors.cyan(deployConfig.config));
+  }
 
-  run(command).exec();
+  var profile = Sandbox.fromToken(config.webtaskToken);
+
+  readFile(deployConfig.source)
+    .then(function (code) {
+      return profile.create(code.toString(), {
+        name:    config.webtaskName,
+        secrets: config.secret || {},
+        params:  config.param || {},
+        parse:   false,
+        merge:   false
+      });
+    })
+    .then(function (webtask) {
+      console.log(colors.white(' => ') +
+        colors.green('webtask successfully deployed to: ') +
+        colors.yellow(webtask.url));
+    })
+    .then(done)
+    .catch(function (error) {
+      return done(colors.white('=> ') +
+        colors.red('error deploying webtask: ') +
+        error);
+    })
+  ;
 }
 
 // This task builds the api for running it locally
@@ -154,9 +186,9 @@ gulp.task('buildWebtaskConfig', function (done) {
 });
 
 // This task builds and creates the webtask using wt-cli
-gulp.task('deployWebtask', ['buildWebtask', 'buildWebtaskConfig'], function() {
+gulp.task('deployWebtask', ['buildWebtask', 'buildWebtaskConfig'], function(done) {
   deployWebtask({
     source: './build/webtask.js',
     config: './build/webtask.config.js'
-  });
+  }, done);
 });
