@@ -2,20 +2,21 @@
 var gulp     = require('gulp');
 var fs       = require('fs');
 var nodemon  = require('nodemon');
-var run      = require('gulp-run');
 var webpack  = require('webpack');
 var Sandbox  = require('sandboxjs');
 var Promise  = require('bluebird');
 var readFile = Promise.promisify(fs.readFile);
 var colors   = require('colors/safe');
+var jscs     = require('gulp-jscs');
+var jshint   = require('gulp-jshint');
 
 // We need to exclude node_modules, otherwise webpack will bundle them
 var nodeModules = {};
 fs.readdirSync('node_modules')
-  .filter(function(x) {
+  .filter(function (x) {
     return ['.bin'].indexOf(x) === -1;
   })
-  .forEach(function(mod) {
+  .forEach(function (mod) {
     nodeModules[mod] = 'commonjs ' + mod;
   })
 ;
@@ -26,7 +27,7 @@ function buildWebpackConfig(config) {
   var webpackConfig = {
     module:      {
       loaders: [
-        {test: /\.js$/, exclude: /node_modules/, loaders: ['babel'] },
+        {test: /\.js$/, exclude: /node_modules/, loaders: ['babel']}
       ]
     },
     entry:       [
@@ -65,7 +66,7 @@ function buildWebpackConfig(config) {
 function runApi(config) {
   var nodemonConfig = {
     script:  config.script,
-    env:     {'NODE_ENV': config.env || 'development'},
+    env:     {NODE_ENV: config.env || 'development'},
     ext:     'noop'
   };
 
@@ -80,14 +81,16 @@ function runApi(config) {
 
 // This is the reporter used for the webpack build
 function onBuild(done) {
-  return function(err, stats) {
+  return function (err, stats) {
     if (err) {
       console.log('Error', err);
     } else {
       console.log(stats.toString());
     }
 
-    if (done) done();
+    if (done) {
+      done();
+    }
   }
 }
 
@@ -135,8 +138,20 @@ function deployWebtask(deployConfig, done) {
   ;
 }
 
+gulp.task('jscs', function () {
+  return gulp.src('src/**/*.js')
+    .pipe(jscs())
+    .pipe(jscs.reporter());
+});
+
+gulp.task('jshint', function () {
+  return gulp.src('src/**/*.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter());
+});
+
 // This task builds the api for running it locally
-gulp.task('build', function (done) {
+gulp.task('build', ['jshint', 'jscs'], function (done) {
   webpack(buildWebpackConfig({
     entry:        './src/server.js',
     sourceMap:    true,
@@ -147,7 +162,7 @@ gulp.task('build', function (done) {
 });
 
 // This task builds and run the api locally
-gulp.task('run', ['build'], function() {
+gulp.task('run', ['build'], function () {
   runApi({
     script: './build/backend.js',
     env:    'development'
@@ -155,7 +170,7 @@ gulp.task('run', ['build'], function() {
 });
 
 // This task builds and run the api locally in debug mode
-gulp.task('debug', ['build'], function() {
+gulp.task('debug', ['build'], function () {
   runApi({
     script: './build/backend.js',
     env:    'development',
@@ -175,7 +190,7 @@ gulp.task('buildWebtask', function (done) {
 });
 
 // This task builds the configuration file for the webtask
-gulp.task('buildWebtaskConfig', function (done) {
+gulp.task('buildWebtaskConfig', ['jshint', 'jscs'], function (done) {
   webpack(buildWebpackConfig({
     entry:            './config/webtask.config.js',
     output:           'webtask.config.js',
@@ -186,7 +201,7 @@ gulp.task('buildWebtaskConfig', function (done) {
 });
 
 // This task builds and creates the webtask using wt-cli
-gulp.task('deployWebtask', ['buildWebtask', 'buildWebtaskConfig'], function(done) {
+gulp.task('deployWebtask', ['buildWebtask', 'buildWebtaskConfig'], function (done) {
   deployWebtask({
     source: './build/webtask.js',
     config: './build/webtask.config.js'

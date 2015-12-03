@@ -15,13 +15,13 @@ function resourceHandler(handler, successStatusCode = 200) {
  *  CollectionController: defines all methods for a collection type resource
  */
 class CollectionController {
-  constructor(service, Model, {getAll, get, post, put, patch, del}) {
-    if (getAll) this.getAll = resourceHandler((context)      => service.getAll(context));
-    if (get)    this.get    = resourceHandler((context, req) => service.get   (context, req.params.id));
-    if (post)   this.post   = resourceHandler((context, req) => service.post  (context, new Model(req.body)));
-    if (put)    this.put    = resourceHandler((context, req) => service.put   (context, req.params.id, new Model(req.body)));
-    if (patch)  this.patch  = resourceHandler((context, req) => service.patch (context, req.params.id, new Model(req.body)));
-    if (del)    this.del    = resourceHandler((context, req) => service.del   (context, req.params.id));
+  constructor (service, Model, {getAll, get, post, put, patch, del}) {
+    if (getAll) {this.getAll = resourceHandler((context)      => service.getAll(context))}
+    if (get)    {this.get    = resourceHandler((context, req) => service.get   (context, req.params.id))}
+    if (post)   {this.post   = resourceHandler((context, req) => service.post  (context, new Model(req.body)))}
+    if (put)    {this.put    = resourceHandler((context, req) => service.put   (context, req.params.id, new Model(req.body)))}
+    if (patch)  {this.patch  = resourceHandler((context, req) => service.patch (context, req.params.id, new Model(req.body)))}
+    if (del)    {this.del    = resourceHandler((context, req) => service.del   (context, req.params.id))}
   }
 }
 
@@ -29,7 +29,7 @@ class CollectionController {
  *  CollectionTypes: defines common methods pattern for a collection controller
  */
 class CollectionTypes {
-  static readWrite() {
+  static readWrite () {
     return {
       getAll: true,
       get:    true,
@@ -40,7 +40,7 @@ class CollectionTypes {
     }
   }
 
-  static readOnly() {
+  static readOnly () {
     return {
       getAll: true,
       get:    true

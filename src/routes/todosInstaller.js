@@ -21,5 +21,5 @@ export default () => {
   route.patch ('/:id', controller.patch);
   route.delete('/:id', controller.del);
 
-	return route;
+  return route;
 }

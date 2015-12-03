@@ -10,7 +10,7 @@ import defaultConfig from './default.config.js'
 let config = {
   localPort: 8080,
   secret:    {
-   MONGO_URL: 'mongodb://todos-api:Otw8p61kJUc03LltbW2jOIpyDU37S4DYAZhZDuNh@ds057954.mongolab.com:57954/todos'
+    MONGO_URL: 'mongodb://todos-api:Otw8p61kJUc03LltbW2jOIpyDU37S4DYAZhZDuNh@ds057954.mongolab.com:57954/todos'
   },
   param:     {
   }

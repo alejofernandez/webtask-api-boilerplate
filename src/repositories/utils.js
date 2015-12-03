@@ -14,33 +14,33 @@ function toObjectId(id) {
 }
 
 class DbConnection {
-  constructor(context) {
+  constructor (context) {
     this.context = context;
   }
 
-  connect() {
+  connect () {
     return MongoClient.connectAsync(this.context.data.MONGO_URL);
   }
 }
 
 class DbCollection {
-  constructor(collectionName) {
+  constructor (collectionName) {
     this.collectionName = collectionName;
   }
 
-  collection(context) {
+  collection (context) {
     return new DbConnection(context).connect()
       .then(db => db.collection(this.collectionName))
     ;
   }
 
-  findById(context, id) {
+  findById (context, id) {
     return this.find(context, {_id: toObjectId(id)})
       .then(result => result[0])
     ;
   }
 
-  find(context, filter) {
+  find (context, filter) {
     return new Promise((resolve, reject) => {
       this.collection(context)
         .then(collection => collection.findAsync(filter || {}))
@@ -49,21 +49,21 @@ class DbCollection {
     });
   }
 
-  insertOne(context, row) {
+  insertOne (context, row) {
     return this.collection(context)
       .then(collection => collection.insertOneAsync(row))
       .then(result     => result.ops[0])
     ;
   }
 
-  updateOne(context, id, changes) {
+  updateOne (context, id, changes) {
     return this.collection(context)
       .then(collection => collection.updateOneAsync({_id: toObjectId(id)}, {$set: changes}))
       .then(()         => this.findById(context, id))
     ;
   }
 
-  deleteOne(context, id) {
+  deleteOne (context, id) {
     return this.collection(context)
       .then(collection => collection.deleteOneAsync({_id: toObjectId(id)}))
       .then(()         => null)

@@ -10,13 +10,13 @@ import routes      from './routes';
 import middlewares from './middlewares';
 
 export default (config) => {
-	let api = express.Router();
+  let api = express.Router();
 
-	// Middlewares
+  // Middlewares
   api.use(config.baseUri || '/', middlewares());
 
   // Routes
   api.use(config.baseUri || '/', routes());
 
-	return api;
-}
+  return api;
+};

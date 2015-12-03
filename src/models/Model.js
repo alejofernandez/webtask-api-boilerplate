@@ -3,16 +3,18 @@
 import _ from 'lodash';
 
 export default class Model {
-  constructor() {
+  constructor () {
   }
 
-  toRow() {
+  toRow () {
     return _.omit(this, ['id', 'toRow', 'toSparseRow']);
   }
 
-  toSparseRow() {
+  toSparseRow () {
     return _.transform(this, (result, value, key) => {
-      if (value !== undefined && key !== 'id') result[key] = value;
+      if (value !== undefined && key !== 'id') {
+        result[key] = value;
+      }
     });
   }
 }

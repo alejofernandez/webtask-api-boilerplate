@@ -5,7 +5,7 @@
 import {CollectionController, CollectionTypes} from './utils'
 
 export default class TodoController extends CollectionController {
-  constructor({service, Model}) {
+  constructor ({service, Model}) {
     super(service, Model, CollectionTypes.readWrite());
   }
 }
